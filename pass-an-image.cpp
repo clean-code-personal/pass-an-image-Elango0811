@@ -1,12 +1,11 @@
 #include <iostream>
 #include "brightener.h"
+#include <memory>
 
 int main() {
-    Image image;
-    image.rows = 512;
-    image.columns = 512;
+    auto image = std::make_unique<Image>(512, 512);
 	std::cout << "Brightening a 512 x 512 image\n";
-    ImageBrightener brightener(image);
-    int attenuatedCount = brightener.BrightenWholeImage();
+    ImageBrightener brightener(std::move(image));
+    const int attenuatedCount = brightener.BrightenWholeImage();
     std::cout << "Attenuated " << attenuatedCount << " pixels\n";
 }
